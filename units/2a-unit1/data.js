@@ -1,0 +1,42 @@
+// 2A Unit 1 vocabulary.
+// ko = Korean, en = English, uz = Uzbek, note = optional hint shown in grey.
+window.UNIT = {
+  id: "2a-unit1",
+  name: "서울대 한국어 2A",
+  level: "Unit 1",
+  words: [
+    { ko: "성명", en: "full name", uz: "ism-familiya" },
+    { ko: "성별", en: "sex, gender", uz: "jins" },
+    { ko: "생년월일", en: "date of birth", uz: "tug'ilgan sana" },
+    { ko: "직업", en: "job, occupation", uz: "kasb" },
+    { ko: "국적", en: "nationality", uz: "fuqarolik" },
+    { ko: "종교", en: "religion", uz: "din" },
+    { ko: "연락처", en: "contact info", uz: "aloqa ma'lumotlari" },
+    { ko: "주소", en: "address", uz: "manzil" },
+    { ko: "전화", en: "telephone", uz: "telefon" },
+    { ko: "이메일", en: "e-mail", uz: "elektron pochta" },
+    { ko: "뵙다", en: "to meet (honorific)", uz: "ko'rishmoq (hurmat shakli)" },
+    { ko: "그냥", en: "just, simply", uz: "shunchaki" },
+    { ko: "들어가다", note: "학교에 ~", en: "to enter (a school)", uz: "kirmoq (maktabga)" },
+    { ko: "부르다", en: "to call (a name)", uz: "chaqirmoq, atamoq" },
+    { ko: "역사", en: "history", uz: "tarix" },
+    { ko: "물어보다", en: "to ask", uz: "so'ramoq" },
+    { ko: "가져오다", en: "to bring", uz: "olib kelmoq" },
+    { ko: "빌리다", en: "to borrow", uz: "qarzga olmoq" },
+    { ko: "시간이 나다", en: "to have free time", uz: "bo'sh vaqt topilmoq" },
+    { ko: "매일", en: "every day", uz: "har kuni" },
+    { ko: "매주", en: "every week", uz: "har hafta" },
+    { ko: "매달", en: "every month", uz: "har oy" },
+    { ko: "매년", en: "every year", uz: "har yili" },
+    { ko: "항상", en: "always", uz: "doim" },
+    { ko: "자주", en: "often", uz: "tez-tez" },
+    { ko: "가끔", en: "sometimes", uz: "ba'zan" },
+    { ko: "직원", en: "employee, staff", uz: "xodim" },
+    { ko: "먼저", en: "first, before others", uz: "avval, birinchi" },
+    { ko: "인사", en: "greeting", uz: "salomlashish" },
+    { ko: "인기가 많다", en: "to be popular", uz: "mashhur bo'lmoq" },
+    { ko: "화장품", en: "cosmetics", uz: "kosmetika" },
+    { ko: "체험", en: "(hands-on) experience", uz: "amaliy tajriba" },
+    { ko: "무료", en: "free (of charge)", uz: "bepul" }
+  ]
+};

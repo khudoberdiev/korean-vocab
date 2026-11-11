@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Korean Vocab</title>
+  <link rel="stylesheet" href="shared/style.css">
+</head>
+<body>
+  <div class="wrap">
+    <div class="header">
+      <div class="avatar" id="av"></div>
+      <div class="who"><b id="au"></b><span id="sub"></span></div>
+    </div>
+    <h1 class="home-title" id="ttl"></h1>
+    <div id="list"></div>
+  </div>
+  <script src="shared/site.js"></script>
+  <script>
+    const S = window.SITE, esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+    document.title = S.title;
+    av.textContent = S.initials; au.textContent = S.author; sub.textContent = S.subtitle; ttl.textContent = S.title;
+    list.innerHTML = window.UNITS.length ? window.UNITS.map(u => `
+      <a class="unit-link" href="units/${esc(u.id)}/index.html">
+        <div class="row">
+          <span class="book">${esc(u.book)}</span>
+          <div class="body"><div class="k" style="font-family:var(--font)">${esc(u.title)}</div><div class="m">${esc(u.topic || "")}</div></div>
+          <span class="count">→</span>
+        </div>
+      </a>`).join("") : '<div class="empty">No units yet.</div>';
+  </script>
+</body>
+</html>
