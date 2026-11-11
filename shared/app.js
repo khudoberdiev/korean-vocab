@@ -25,21 +25,42 @@
     return shuffle([word, ...pool]);
   }
 
-  // ---------- speech (browser Korean voice) ----------
+  // ---------- speech ----------
+  // 1) Plays ./audio/<hash>.mp3 if it exists (made by make_audio.py).
+  // 2) Otherwise falls back to the best Korean voice the browser has.
+  function audioName(text) {
+    let h = 0x811c9dc5;
+    const t = String(text).normalize("NFC");
+    for (let i = 0; i < t.length; i++) { h ^= t.charCodeAt(i); h = Math.imul(h, 0x01000193) >>> 0; }
+    return h.toString(16).padStart(8, "0");
+  }
   let koVoice = null;
   function pickVoice() {
     if (!("speechSynthesis" in window)) return;
-    const vs = speechSynthesis.getVoices();
-    koVoice = vs.find(v => v.lang && v.lang.toLowerCase().startsWith("ko")) || null;
+    const ko = speechSynthesis.getVoices().filter(v => v.lang && v.lang.toLowerCase().startsWith("ko"));
+    const rank = v => /natural|neural|online/i.test(v.name) ? 0 : /google/i.test(v.name) ? 1 : /yuna|premium|enhanced/i.test(v.name) ? 2 : 3;
+    koVoice = ko.sort((a, b) => rank(a) - rank(b))[0] || null;
   }
   if ("speechSynthesis" in window) { pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
-  function speak(text) {
+  function browserSpeak(text) {
     if (!("speechSynthesis" in window)) return;
     speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(text);
-    u.lang = "ko-KR"; u.rate = 0.85;
+    u.lang = "ko-KR"; u.rate = 0.9;
     if (koVoice) u.voice = koVoice;
     speechSynthesis.speak(u);
+  }
+  const missing = new Set();
+  let current = null;
+  function speak(text) {
+    if (current) { current.pause(); current = null; }
+    if ("speechSynthesis" in window) speechSynthesis.cancel();
+    const name = audioName(text);
+    if (missing.has(name)) return browserSpeak(text);
+    const a = new Audio(`./audio/${name}.mp3`);
+    current = a;
+    a.onerror = () => { missing.add(name); if (current === a) browserSpeak(text); };
+    a.play().catch(err => { if (err && err.name !== "AbortError" && !missing.has(name)) { missing.add(name); browserSpeak(text); } });
   }
   window.speakWord = speak;
 
@@ -59,6 +80,7 @@
 
   function switchMode(mode) {
     if ("speechSynthesis" in window) speechSynthesis.cancel();
+    if (current) { current.pause(); current = null; }
     document.querySelectorAll(".tab").forEach(t => t.classList.toggle("active", t.dataset.mode === mode));
     ({ list: renderList, flash: startFlash, quiz: () => startQuiz(), spell: () => startSpell(), listen: () => startListen() })[mode]();
     window.scrollTo({ top: 0 });

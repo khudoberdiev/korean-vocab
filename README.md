@@ -18,3 +18,12 @@ You can also just double-click `index.html` to use it offline.
 
 ## Change name / title
 Edit `shared/site.js`.
+
+## Natural pronunciation (recommended)
+The browser voice is a fallback. For a natural voice, run once on your computer:
+```
+pip install edge-tts
+python3 make_audio.py
+```
+This creates `units/<unit>/audio/*.mp3`. Upload the new `audio` folders to GitHub.
+Run it again whenever you add words; existing files are skipped.
